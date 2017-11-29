@@ -8,12 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+// forward declaration
 @class ListingsViewController;
+@class TMCategory;
 
+// ============================================================
 @interface CategoryViewController : UITableViewController
 
+@property (strong, nonatomic) TMCategory *categoryData;
+@property (assign, nonatomic) NSInteger categoryNum;
 @property (strong, nonatomic) ListingsViewController *detailViewController;
-
 
 @end
 

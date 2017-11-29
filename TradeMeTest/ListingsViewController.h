@@ -10,8 +10,13 @@
 
 @interface ListingsViewController : UIViewController
 
-@property (strong, nonatomic) NSDate *detailItem;
+@property (strong, nonatomic) NSString *categoryName;
+//@property (strong, nonatomic) NSDate *detailItem;
+
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+
+// **
+- (void)setCategory:(NSString *)aCategoryName;
 
 @end
 

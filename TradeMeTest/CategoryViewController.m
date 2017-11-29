@@ -8,9 +8,9 @@
 
 #import "CategoryViewController.h"
 #import "ListingsViewController.h"
+#import "TMCategory.h"
 
 @interface CategoryViewController ()
-
 @property NSMutableArray *objects;
 @end
 
@@ -18,17 +18,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+    //UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    //self.navigationItem.rightBarButtonItem = addButton;
+    
     self.detailViewController = (ListingsViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    
+    __weak typeof(self) weakSelf = self;
+    [TMCategory categoryById:1 completionHandler:^(TMCategory * _Nullable category, NSError * _Nullable error) {
+        weakSelf.categoryData = category;
+        weakSelf.navigationItem.title = self.categoryData.name;
+        [weakSelf.tableView reloadData];
+        
+        if (error != nil) {
+            // Error
+            NSLog(@"%@", [error localizedDescription]);
+        } else if (category != nil) {
+            NSLog(@"%@", category.name);
+        } else {
+            NSLog(@"Category is nil");
+        }
+    }];
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed;
+    self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed; // !!!!
     [super viewWillAppear:animated];
 }
 
@@ -53,10 +68,15 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = self.objects[indexPath.row];
+        //!!NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        NSString* aCategoryName = nil;
+        if (self.categoryData != nil) {
+            aCategoryName = self.categoryData.name;
+        }
+        //!!NSDate *object = self.objects[indexPath.row];
         ListingsViewController *controller = (ListingsViewController *)[[segue destinationViewController] topViewController];
-        [controller setDetailItem:object];
+        //[controller setDetailItem:object];
+        [controller setCategory:aCategoryName];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
     }
@@ -71,15 +91,19 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.objects.count;
+    if (self.categoryData != nil)
+        return self.categoryData.subcategories.count;
+    else
+        return 0;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-    NSDate *object = self.objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    TMCategory* aCategory = self.categoryData.subcategories[indexPath.row];
+    cell.textLabel.text = aCategory.name;
+    
     return cell;
 }
 
