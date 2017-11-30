@@ -18,20 +18,21 @@
 
 @implementation TMCategory
 
-- (nullable instancetype) initCategory {
+- (instancetype) initCategory {
     return [super init];
 }
 
 #pragma mark - Factory methods
 
-+ (void) categoryById: (int) categoryId completionHandler: (void (^)(TMCategory *category, NSError *error)) completionHandler {
++ (void) categoryById: (NSString *) categoryId completionHandler: (void (^)(TMCategory *category, NSError *error)) completionHandler {
     // --------------------------------------------------------------
     // REST API DESCR:
     // https://developer.trademe.co.nz/api-reference/catalogue-methods/retrieve-general-categories/
     // --------------------------------------------------------------
     
     // Build URL to retrieve categories from server
-    NSURL *url = [NSURL URLWithString:@"https://api.tmsandbox.co.nz/v1/Categories/0000.json?depth=1&region=1&with_counts=false"];
+    NSString * urlStr = [NSString stringWithFormat:@"https://api.tmsandbox.co.nz/v1/Categories/%@.json?depth=1&region=100&with_counts=true", categoryId];
+    NSURL *url = [NSURL URLWithString:urlStr];
     
     // retrieve the contents of the specified URL
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
@@ -76,6 +77,27 @@
     [dataTask resume];
 }
 
++ (TMCategory *) rootCategoryWithNoSubcategories {
+    TMCategory *category = [[TMCategory alloc] initCategory];
+    category.name = @"Root";
+    category.categoryId = @"0000";
+    category.path = @"/";
+    category.listingsCount = 0;
+    return category;
+}
+
+
+#pragma mark -
+
+- (TMCategory *) copyWithNoSubcategories {
+    TMCategory *category = [[TMCategory alloc] initCategory];
+    category.name = [self.name copy];
+    category.categoryId = [self.categoryId copy];
+    category.path = [self.path copy];
+    category.listingsCount = self.listingsCount;
+    return category;
+}
+
 #pragma mark - private methods
 
 + (TMCategory *) _createCategoryFromJSONData: (NSData *) data {
@@ -97,7 +119,19 @@
             result = [[TMCategory alloc] initCategory];
             result.name = [jsonDict objectForKey:@"Name"];
             result.path = [jsonDict objectForKey:@"Path"];
-            result.number = [jsonDict objectForKey:@"Number"];
+            result.listingsCount = ((NSNumber *)[jsonDict objectForKey:@"Count"]).integerValue;
+            
+            // Calc categoryId: category number can be either @"0276" or @"0001-0276-" etc
+            // bring it @"XXXX" form
+            NSString *number= [jsonDict objectForKey:@"Number"];
+            if (number && number.length > 0) {
+                if ([number hasSuffix:@"-"]) {
+                    number = [number substringToIndex:number.length-1];
+                }
+                result.categoryId = [[number componentsSeparatedByString:@"-"] lastObject];
+            } else {
+                result.categoryId = @"0000"; // Root
+            }
             
             // populate subcategories (we only need 1 level)
             NSArray *subcategories =[jsonDict objectForKey:@"Subcategories"];
@@ -107,7 +141,17 @@
                     TMCategory *subcategory = [[TMCategory alloc] initCategory];
                     subcategory.name = [dict objectForKey:@"Name"];
                     subcategory.path = [dict objectForKey:@"Path"];
-                    subcategory.number = [dict objectForKey:@"Number"];
+                    //id obj = [dict objectForKey:@"Count"];
+                    subcategory.listingsCount = ((NSNumber *)[dict objectForKey:@"Count"]).integerValue;
+
+                    // Calc categoryId: category number can be either @"0276" or @"0001-0276-" etc
+                    // bring it @"XXXX" form
+                    NSString *number= [dict objectForKey:@"Number"];
+                    if ([number hasSuffix:@"-"]) {
+                        number = [number substringToIndex:number.length-1];
+                    }
+                    subcategory.categoryId = [[number componentsSeparatedByString:@"-"] lastObject];
+
                     [(NSMutableArray *)result.subcategories addObject:subcategory];
                 }
             }
