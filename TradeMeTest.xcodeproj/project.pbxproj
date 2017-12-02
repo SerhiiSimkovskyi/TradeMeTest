@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		50572BB51FCEE08D0098F515 /* TMCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 50572BB41FCEE08D0098F515 /* TMCategory.m */; };
 		50572BB81FD02D6D0098F515 /* TMListings.m in Sources */ = {isa = PBXBuildFile; fileRef = 50572BB71FD02D6D0098F515 /* TMListings.m */; };
+		50572BBC1FD299320098F515 /* TMListingDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 50572BBB1FD299320098F515 /* TMListingDetails.m */; };
+		50572BBF1FD2A3FB0098F515 /* ListingDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50572BBE1FD2A3FB0098F515 /* ListingDetailsViewController.m */; };
 		50FF4F421FCECFDA0005FCA1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FF4F411FCECFDA0005FCA1 /* AppDelegate.m */; };
 		50FF4F451FCECFDA0005FCA1 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FF4F441FCECFDA0005FCA1 /* CategoryViewController.m */; };
 		50FF4F481FCECFDA0005FCA1 /* ListingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FF4F471FCECFDA0005FCA1 /* ListingsViewController.m */; };
@@ -23,6 +25,11 @@
 		50572BB41FCEE08D0098F515 /* TMCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TMCategory.m; sourceTree = "<group>"; };
 		50572BB61FD02D6D0098F515 /* TMListings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TMListings.h; sourceTree = "<group>"; };
 		50572BB71FD02D6D0098F515 /* TMListings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TMListings.m; sourceTree = "<group>"; };
+		50572BB91FD192D20098F515 /* TMErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TMErrors.h; sourceTree = "<group>"; };
+		50572BBA1FD299320098F515 /* TMListingDetails.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TMListingDetails.h; sourceTree = "<group>"; };
+		50572BBB1FD299320098F515 /* TMListingDetails.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TMListingDetails.m; sourceTree = "<group>"; };
+		50572BBD1FD2A3FB0098F515 /* ListingDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ListingDetailsViewController.h; sourceTree = "<group>"; };
+		50572BBE1FD2A3FB0098F515 /* ListingDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListingDetailsViewController.m; sourceTree = "<group>"; };
 		50FF4F3D1FCECFDA0005FCA1 /* TradeMeTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TradeMeTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50FF4F401FCECFDA0005FCA1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		50FF4F411FCECFDA0005FCA1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -51,10 +58,13 @@
 		50572BAF1FCEE0280098F515 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				50572BB91FD192D20098F515 /* TMErrors.h */,
 				50572BB31FCEE08D0098F515 /* TMCategory.h */,
 				50572BB41FCEE08D0098F515 /* TMCategory.m */,
 				50572BB61FD02D6D0098F515 /* TMListings.h */,
 				50572BB71FD02D6D0098F515 /* TMListings.m */,
+				50572BBA1FD299320098F515 /* TMListingDetails.h */,
+				50572BBB1FD299320098F515 /* TMListingDetails.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -85,6 +95,8 @@
 				50FF4F441FCECFDA0005FCA1 /* CategoryViewController.m */,
 				50FF4F461FCECFDA0005FCA1 /* ListingsViewController.h */,
 				50FF4F471FCECFDA0005FCA1 /* ListingsViewController.m */,
+				50572BBD1FD2A3FB0098F515 /* ListingDetailsViewController.h */,
+				50572BBE1FD2A3FB0098F515 /* ListingDetailsViewController.m */,
 				50FF4F491FCECFDA0005FCA1 /* Main.storyboard */,
 				50FF4F4C1FCECFDA0005FCA1 /* Assets.xcassets */,
 				50FF4F4E1FCECFDA0005FCA1 /* LaunchScreen.storyboard */,
@@ -165,12 +177,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50572BBF1FD2A3FB0098F515 /* ListingDetailsViewController.m in Sources */,
 				50FF4F451FCECFDA0005FCA1 /* CategoryViewController.m in Sources */,
 				50FF4F421FCECFDA0005FCA1 /* AppDelegate.m in Sources */,
 				50FF4F531FCECFDA0005FCA1 /* main.m in Sources */,
 				50572BB51FCEE08D0098F515 /* TMCategory.m in Sources */,
 				50FF4F481FCECFDA0005FCA1 /* ListingsViewController.m in Sources */,
 				50572BB81FD02D6D0098F515 /* TMListings.m in Sources */,
+				50572BBC1FD299320098F515 /* TMListingDetails.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
