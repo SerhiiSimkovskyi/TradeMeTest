@@ -71,10 +71,14 @@ typedef NS_ENUM(NSInteger, ListingsViewState)
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
     self.spinner.center = self.tableView.center; // update spinner position
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
     // deselect table selection
     NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
     if (indexPath) {

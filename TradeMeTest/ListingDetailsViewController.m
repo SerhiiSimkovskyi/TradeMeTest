@@ -57,6 +57,8 @@ typedef NS_ENUM(NSInteger, DetailsViewState)
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
     self.spinner.center = self.tableView.center;
 }
 

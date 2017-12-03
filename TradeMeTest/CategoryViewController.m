@@ -83,12 +83,12 @@ typedef NS_ENUM(NSInteger, CategoryViewState)
     [self categoryChangedHandler];
 }
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
     self.spinner.center = self.tableView.center; // update spinner position
     
     // done button should NOT be displayed when both category and listings view are displayed on screen
     [self updateDoneBtn];
-
-    [super viewWillAppear:animated];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator {
