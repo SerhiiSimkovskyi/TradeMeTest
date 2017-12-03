@@ -227,6 +227,10 @@
                     TMListingsItem *aListingDetail = [[TMListingsItem alloc] init];
                     aListingDetail.listingId = ((NSNumber *)[dict objectForKey:@"ListingId"]).integerValue;
                     aListingDetail.title = [dict objectForKey:@"Title"];
+                    aListingDetail.region = [dict objectForKey:@"Region"];
+                    aListingDetail.price = [dict objectForKey:@"PriceDisplay"];
+                    //aListingDetail.priceBuyNow = ((NSNumber *)[dict objectForKey:@"BuyNowPrice"]).floatValue;
+                    //aListingDetail.priceMaxBid = ((NSNumber *)[dict objectForKey:@"MaxBidAmount"]).floatValue;
                     aListingDetail.thumbnailURL = [dict objectForKey:@"PictureHref"];
                     [(NSMutableArray *)result.list addObject:aListingDetail];
                 }

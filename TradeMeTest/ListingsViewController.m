@@ -184,6 +184,15 @@ typedef NS_ENUM(NSInteger, ListingsViewState)
             UILabel *labelText = (UILabel *)[cell.contentView viewWithTag:102];
             labelText.text = aListingItem.title;
             
+            UILabel *labelRegion = (UILabel *)[cell.contentView viewWithTag:103];
+            labelRegion.text = (aListingItem.region) ? aListingItem.region : @"";
+            
+            UILabel *labelPriceBid = (UILabel *)[cell.contentView viewWithTag:104];
+            labelPriceBid.text = @"";
+
+            UILabel *labelPrice = (UILabel *)[cell.contentView viewWithTag:105];
+            labelPrice.text = (aListingItem.price) ? aListingItem.price : @"";
+
             // ---------------------------------------------------
             // Setup thumbnail, load it async, with caching
             // ---------------------------------------------------

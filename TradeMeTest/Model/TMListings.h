@@ -44,6 +44,8 @@ typedef NS_ENUM(NSInteger, ListingsCondition)
 @property (nonatomic, assign) NSInteger listingId; // e.g. 6215751
 @property (nonatomic, strong) NSString *title; // e.g. @"Pro1 OMEGA 0025"
 @property (nonatomic, strong) NSString *thumbnailURL; // e.g. @"Pro1 OMEGA 0025"
+@property (nonatomic, strong) NSString *region; // e.g. @"Auckland"
+@property (nonatomic, strong) NSString *price; // e.g. @"$1,400 per item"
 
 // used for caching thumbnails
 @property (nonatomic, strong) UIImage *thumbnailImage;
